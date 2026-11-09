@@ -1,1 +1,11 @@
-{"name":"dfalab-checks","private":true,"type":"module","engines":{"node":">=22"},"scripts":{"test":"node --test --test-concurrency=1 tests/test_engine.mjs tests/test_browser.cjs"}}
+{
+  "name": "dfalab-checks",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test --test-concurrency=1 tests/test_engine.mjs tests/test_browser.cjs tests/test_conformance_engine.mjs tests/test_conformance_browser.cjs"
+  }
+}
