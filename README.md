@@ -4,7 +4,7 @@
 
 An inspectable implementation of Dana Angluin's classic L* active DFA learning algorithm. A learner asks membership questions, repairs an observation table and proposes machines. An exact finite teacher returns a shortest counterexample until the conjecture accepts the same language. Every experiment and correction is replayable; the final machine has reachability and pair-separation witnesses proving minimality.
 
-[Browser inspector](https://midya8.github.io/dfalab/) | [Exact contract and sources](CONTRACT.md)
+[Bounded conformance inspector](https://midya8.github.io/dfalab/conformance.html) | [Conformance contract](CONFORMANCE.md) | [Browser inspector](https://midya8.github.io/dfalab/) | [Exact contract and sources](CONTRACT.md)
 
 ## Why this is interesting
 
@@ -47,3 +47,9 @@ These are original tiny synthetic controls, not real-world protocol benchmarks o
 The original algorithm and its theoretical result belong to Angluin (1987). This is an original implementation and an explanatory inspector, not a new learning algorithm or an implementation of LearnLib/AALpy.
 
 MIT license. Full attribution and source notes: [CONTRACT.md](CONTRACT.md).
+
+## Passing tests is a conditional claim
+
+The added W-method inspector builds `P · Σ^{≤m-n+1} · W`, retaining every access word, middle word, distinguishing suffix, test path and canonical factor witness. It separates suite agreement, the supplied candidate's reachable-state bound, the theorem's conditional conclusion and an independent exact product audit. A faulty extra-state candidate passes when the bound is understated; increasing the bound exposes its shortest fault. An independent native verifier audits every factor and output. The original L* page and learning schema remain available unchanged apart from navigation.
+
+Six added native tests include 52,488 exhaustive reference/candidate cases. Two added engine tests cross-check 131 full reports. Actual Chrome audits every 3,444 test selection across 11 controls and three widths. Four Python versions, seven Node/Chrome checks and installed two-family reproduction are covered by CI. Counts are tested fixture coverage, not a benchmark or a new theorem. [Exact assumptions, construction and sources](CONFORMANCE.md).

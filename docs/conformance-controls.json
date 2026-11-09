@@ -1,0 +1,516 @@
+[
+  {
+    "name": "False pass outside the bound",
+    "note": "The candidate first rejects aaa, beyond this understated one-state fault domain.",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "implementation": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            3
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0,
+          1,
+          2
+        ]
+      },
+      "bound": 1
+    }
+  },
+  {
+    "name": "Restore the real state bound",
+    "note": "The same faulty candidate is now inside the fault domain; the suite exposes aaa.",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "implementation": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            3
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0,
+          1,
+          2
+        ]
+      },
+      "bound": 4
+    }
+  },
+  {
+    "name": "Same-state transition fault",
+    "note": "A wrong b transition is exposed without increasing the state count.",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a",
+          "b"
+        ],
+        "transitions": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "implementation": {
+        "alphabet": [
+          "a",
+          "b"
+        ],
+        "transitions": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "bound": 2
+    }
+  },
+  {
+    "name": "Equivalent renamed implementation",
+    "note": "Different state IDs and a nonzero start do not change the language.",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a",
+          "b"
+        ],
+        "transitions": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "implementation": {
+        "alphabet": [
+          "a",
+          "b"
+        ],
+        "transitions": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "start": 1,
+        "accept": [
+          1
+        ]
+      },
+      "bound": 3
+    }
+  },
+  {
+    "name": "Unreachable states do not consume the bound",
+    "note": "Six supplied states but only one reachable state. The language is still universal.",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "implementation": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            0
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ],
+          [
+            5
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "bound": 1
+    }
+  },
+  {
+    "name": "Empty-word failure",
+    "note": "Acceptance at the initial state matters. The suite always includes epsilon.",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "implementation": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": []
+      },
+      "bound": 1
+    }
+  },
+  {
+    "name": "Three-state suffix recognizer",
+    "note": "The reference and candidate agree on every word. Every state pair is separated.",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a",
+          "b"
+        ],
+        "transitions": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          2
+        ]
+      },
+      "implementation": {
+        "alphabet": [
+          "a",
+          "b"
+        ],
+        "transitions": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          2
+        ]
+      },
+      "bound": 3
+    }
+  },
+  {
+    "name": "Enough extra-state exploration",
+    "note": "The candidate is equivalent but deliberately has redundant reachable states.",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "implementation": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0,
+          1,
+          2
+        ]
+      },
+      "bound": 3
+    }
+  },
+  {
+    "name": "A correct candidate outside the claim",
+    "note": "Suite passes outside an understated bound. Exact audit happens to prove this candidate equivalent.",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "implementation": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0,
+          1,
+          2
+        ]
+      },
+      "bound": 1
+    }
+  },
+  {
+    "name": "Largest middle-word family",
+    "note": "A ternary one-state language and bound six produce all words up to length six.",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a",
+          "b",
+          "c"
+        ],
+        "transitions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": []
+      },
+      "implementation": {
+        "alphabet": [
+          "a",
+          "b",
+          "c"
+        ],
+        "transitions": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": []
+      },
+      "bound": 6
+    }
+  },
+  {
+    "name": "Six distinguishable unary states",
+    "note": "All reference states are reachable and language-distinct; no extra states are assumed.",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ],
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "implementation": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ],
+          [
+            5
+          ],
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "bound": 6
+    }
+  }
+]

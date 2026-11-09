@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {execFileSync} from 'node:child_process';import {analyze} from '../docs/conformance-engine.js';
+const controls=JSON.parse(fs.readFileSync(new URL('../docs/conformance-controls.json',import.meta.url))),python=process.env.PYTHON||'python';
+test('complete cross-engine conformance reports and independent verification',()=>{
+ const xs=controls.map(c=>c.input);let z=1978;const rand=n=>{z=(Math.imul(z,1664525)+1013904223)>>>0;return z%n;};for(let k=0;k<120;k++){const ref=controls[k%controls.length].input.reference,n=1+rand(6),a=ref.alphabet;xs.push({reference:ref,implementation:{alphabet:a,transitions:Array.from({length:n},()=>a.map(()=>rand(n))),start:rand(n),accept:Array.from({length:n},(_,i)=>i).filter(()=>rand(2))},bound:ref.transitions.length+rand(7-ref.transitions.length)});}
+ const rs=xs.map(analyze),ns=JSON.parse(execFileSync(python,['-c','import json,sys;from dfalab.conformance import analyze;print(json.dumps([analyze(x)for x in json.load(sys.stdin)]))'],{input:JSON.stringify(xs),maxBuffer:64<<20}));assert.deepEqual(rs,ns);execFileSync(python,['-c','import sys,json;from dfalab.conformance import verify;assert all(verify(x)for x in json.load(sys.stdin))'],{input:JSON.stringify(rs),maxBuffer:64<<20});console.log(rs.length+' complete conformance reports independently verified');
+});
+test('strict bounds, minimal reference and false pass claim separation',()=>{
+ const x=controls[0].input,before=structuredClone(x),r=analyze(x);assert.deepEqual(x,before);assert.equal(r.summary.suite_passed,true);assert.equal(r.summary.bounded_equivalence_certificate,false);assert.equal(r.summary.exact_equivalent,false);assert.equal(r.equivalence.counterexample,'aaa');
+ for(const bad of [{...x,bound:true},{...x,bound:0},{...x,bound:7},{...x,extra:1},{...x,reference:{alphabet:['a'],transitions:[[1],[1]],start:0,accept:[]}},{...x,reference:{alphabet:['a'],transitions:[[0],[1]],start:0,accept:[0]}}])assert.throws(()=>analyze(bad));assert.equal(analyze(controls[5].input).summary.first_failure,'');
+});

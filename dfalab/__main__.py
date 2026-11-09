@@ -6,8 +6,8 @@ import sys
 import tempfile
 from .core import learn, verify
 
-def main():
-    p=argparse.ArgumentParser(description='Exact observation-table DFA learning and independent trace verification')
+def main(generator=learn,verifier=verify,description='Exact observation-table DFA learning and independent trace verification'):
+    p=argparse.ArgumentParser(description=description)
     p.add_argument('input');p.add_argument('--verify',action='store_true');p.add_argument('--output');a=p.parse_args()
     try:
         cap=8*1024*1024 if a.verify else 65536
@@ -22,9 +22,9 @@ def main():
             return d
         d=json.loads(raw,object_pairs_hook=unique,parse_constant=lambda _:(_ for _ in ()).throw(ValueError('nonfinite JSON')))
         if a.verify:
-            if not verify(d):raise ValueError('invalid learning certificate')
+            if not verifier(d):raise ValueError('invalid certificate')
             out='valid\n'
-        else:out=json.dumps(learn(d),indent=2,ensure_ascii=True)+'\n'
+        else:out=json.dumps(generator(d),indent=2,ensure_ascii=True)+'\n'
         if a.output:
             target=Path(a.output); fd,name=tempfile.mkstemp(prefix='.'+target.name+'.',dir=target.parent)
             try:
