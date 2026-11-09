@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dfalab"
-version = "0.2.0"
+version = "0.3.0"
 description = "Exact tiny active DFA learning with independently checked observation tables and equivalence witnesses"
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -14,6 +14,7 @@ dependencies = []
 [project.scripts]
 dfalab = "dfalab.__main__:main"
 dfalab-conformance = "dfalab.conformance:main"
+dfalab-fault-atlas = "dfalab.fault_atlas:main"
 
 [tool.setuptools.packages.find]
 include = ["dfalab*"]
