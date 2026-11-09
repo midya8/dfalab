@@ -1,0 +1,183 @@
+[
+  {
+    "name": "Universal binary, two-state domain",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a",
+          "b"
+        ],
+        "transitions": [
+          [
+            0,
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "bound": 2
+    }
+  },
+  {
+    "name": "Parity binary, two-state domain",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a",
+          "b"
+        ],
+        "transitions": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "bound": 2
+    }
+  },
+  {
+    "name": "Reject all unary, three-state domain",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": []
+      },
+      "bound": 3
+    }
+  },
+  {
+    "name": "Unary parity, three-state domain",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            1
+          ],
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "bound": 3
+    }
+  },
+  {
+    "name": "Unary modulo three, three-state domain",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "bound": 3
+    }
+  },
+  {
+    "name": "Nonzero start binary reference",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a",
+          "b"
+        ],
+        "transitions": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "start": 1,
+        "accept": [
+          1
+        ]
+      },
+      "bound": 2
+    }
+  },
+  {
+    "name": "Single-state accepting domain",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a"
+        ],
+        "transitions": [
+          [
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": [
+          0
+        ]
+      },
+      "bound": 1
+    }
+  },
+  {
+    "name": "Single-state rejecting domain",
+    "input": {
+      "reference": {
+        "alphabet": [
+          "a",
+          "b"
+        ],
+        "transitions": [
+          [
+            0,
+            0
+          ]
+        ],
+        "start": 0,
+        "accept": []
+      },
+      "bound": 1
+    }
+  }
+]

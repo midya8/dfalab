@@ -1,0 +1,13 @@
+import {analyze as suite} from './conformance-engine.js';import {validate,equivalence,trace} from './engine.js';
+export function analyze(input){
+ if(!input||Array.isArray(input)||typeof input!=='object'||Object.keys(input).sort().join(',')!=='bound,reference')throw Error('request needs exactly reference and bound');
+ const x=JSON.parse(JSON.stringify(input)),r=validate(x.reference),m=x.bound,a=r.alphabet,k=a.length;if(!Number.isInteger(m)||m<r.transitions.length||m>(k===1?3:2)||k>2)throw Error('atlas needs unary bound <=3 or binary bound <=2, at least reference size');
+ const base=suite({reference:r,implementation:r,bound:m}),words=base.tests.map(t=>t.word),expected=base.tests.map(t=>t.expected),candidates=[],count=m**(m*k)*(1<<m)*m;
+ for(let id=0;id<count;id++){
+  let z=id,start=z%m;z=Math.floor(z/m);const f=z%(1<<m);z=Math.floor(z/(1<<m));const flat=Array(m*k).fill(0);for(let j=flat.length-1;j>=0;j--){flat[j]=z%m;z=Math.floor(z/m);}const d={alphabet:a.slice(),transitions:Array.from({length:m},(_,j)=>flat.slice(j*k,(j+1)*k)),start,accept:Array.from({length:m},(_,q)=>q).filter(q=>f&(1<<q))},outputs=words.map(w=>d.accept.includes(trace(d,w).at(-1))),seen=new Set([start]),queue=[start];for(const q of queue)for(const v of d.transitions[q])if(!seen.has(v)){seen.add(v);queue.push(v);}candidates.push({id,machine:d,reachable_states:seen.size,counterexample:equivalence(r,d).counterexample,outputs,rejected_by:outputs.flatMap((v,j)=>v===expected[j]?[]:[j])});
+ }
+ const faults=candidates.filter(c=>c.counterexample!==null),subsets=[];
+ for(let mask=0;mask<2**words.length;mask++){const ids=words.flatMap((_,j)=>mask&(1<<j)?[j]:[]),miss=faults.filter(c=>!c.rejected_by.some(j=>mask&(1<<j))).map(c=>c.id);subsets.push({mask,tests:ids,count:ids.length,symbols:ids.reduce((n,j)=>n+words[j].length,0),covered_faults:faults.length-miss.length,missed_faults:miss.length,first_survivor:miss[0]??null});}
+ const complete=subsets.filter(s=>!s.missed_faults),best=complete.slice().sort((s,t)=>s.count-t.count||s.symbols-t.symbols)[0],optimal=complete.filter(s=>s.count===best.count&&s.symbols===best.symbols).map(s=>s.mask),chosen=optimal[0];
+ return {schema:'dfalab-fault-atlas-v1',request:x,suite_certificate:base,words,expected,candidates,subsets,optimal_masks:optimal,chosen_mask:chosen,chosen_necessity:subsets[chosen].tests.map(j=>({test:j,survivor_without:subsets[chosen^(1<<j)].first_survivor})),full_suite_essential:words.flatMap((_,j)=>subsets[(2**words.length-1)^(1<<j)].missed_faults?[j]:[]),summary:{declared_states:m,candidates:count,equivalent:count-faults.length,faults:faults.length,full_tests:words.length,subsets_checked:subsets.length,minimum_tests:best.count,minimum_symbols_at_minimum_tests:best.symbols,optimal_suites:optimal.length}};
+}
