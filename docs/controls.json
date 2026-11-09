@@ -1,0 +1,264 @@
+[
+  {
+    "name": "Nothing is accepted",
+    "note": "Equivalent rejecting states collapse; table needs no repair.",
+    "target": {
+      "alphabet": [
+        "a",
+        "b"
+      ],
+      "transitions": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "start": 0,
+      "accept": []
+    }
+  },
+  {
+    "name": "Every word is accepted",
+    "note": "Even the empty word is accepted; all reachable states merge.",
+    "target": {
+      "alphabet": [
+        "a",
+        "b"
+      ],
+      "transitions": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "start": 0,
+      "accept": [
+        0,
+        1
+      ]
+    }
+  },
+  {
+    "name": "Two parity bits",
+    "note": "The standard even/even parity example from Angluin: a stable table can still give a wrong conjecture.",
+    "target": {
+      "alphabet": [
+        "a",
+        "b"
+      ],
+      "transitions": [
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "start": 0,
+      "accept": [
+        0
+      ]
+    }
+  },
+  {
+    "name": "Delayed acceptance",
+    "note": "Words shorter than five all look alike. A finite test prefix is not equivalence.",
+    "target": {
+      "alphabet": [
+        "a"
+      ],
+      "transitions": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          5
+        ]
+      ],
+      "start": 0,
+      "accept": [
+        5
+      ]
+    }
+  },
+  {
+    "name": "Unreachable accepting state",
+    "note": "An accepting state exists but is unreachable. Language minimization discards it.",
+    "target": {
+      "alphabet": [
+        "a",
+        "b"
+      ],
+      "transitions": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "start": 0,
+      "accept": [
+        1
+      ]
+    }
+  },
+  {
+    "name": "Starts away from zero",
+    "note": "State labels are not semantics; start state is explicit.",
+    "target": {
+      "alphabet": [
+        "a",
+        "b"
+      ],
+      "transitions": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "start": 1,
+      "accept": [
+        0
+      ]
+    }
+  },
+  {
+    "name": "Ends with ab",
+    "note": "Reset behavior makes the last two symbols matter.",
+    "target": {
+      "alphabet": [
+        "a",
+        "b"
+      ],
+      "transitions": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "start": 0,
+      "accept": [
+        2
+      ]
+    }
+  },
+  {
+    "name": "Unary modulo three",
+    "note": "The shortest separating suffix may be empty.",
+    "target": {
+      "alphabet": [
+        "a"
+      ],
+      "transitions": [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          0
+        ]
+      ],
+      "start": 0,
+      "accept": [
+        0
+      ]
+    }
+  },
+  {
+    "name": "Three experiments, one language",
+    "note": "Original seeded synthetic teacher. Multiple counterexamples and consistency repairs are needed.",
+    "target": {
+      "alphabet": [
+        "a",
+        "b",
+        "c"
+      ],
+      "transitions": [
+        [
+          3,
+          1,
+          4
+        ],
+        [
+          5,
+          2,
+          4
+        ],
+        [
+          4,
+          3,
+          5
+        ],
+        [
+          5,
+          0,
+          4
+        ],
+        [
+          0,
+          3,
+          5
+        ],
+        [
+          2,
+          4,
+          2
+        ]
+      ],
+      "start": 0,
+      "accept": [
+        0,
+        1,
+        3,
+        5
+      ]
+    }
+  }
+]
