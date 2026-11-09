@@ -29,3 +29,15 @@ with tempfile.TemporaryDirectory() as td:
    out=Path(td)/'conformance.json';subprocess.run(cmd+[str(p),'--output',str(out)],check=True,capture_output=True);assert json.loads(out.read_text())==expected
    assert subprocess.run(cmd+[str(out),'--verify'],check=True,capture_output=True,text=True).stdout=='valid\n'
 print(f'Installed conformance: {len(controls)} controls, both entry points, fourth site-packages origin, outside checkout')
+
+import dfalab.fault_atlas
+from dfalab.fault_atlas import analyze as atlas,verify as check_atlas
+assert 'site-packages' in str(Path(dfalab.fault_atlas.__file__).resolve())
+controls=json.loads(Path(sys.argv[5]).read_text())
+with tempfile.TemporaryDirectory() as td:
+ for c in controls:
+  p=Path(td)/'request.json';p.write_text(json.dumps(c['input']));expected=atlas(c['input']);assert check_atlas(expected)
+  for cmd in [[sys.executable,'-m','dfalab.fault_atlas'],[sys.argv[6]]]:
+   out=Path(td)/'atlas.json';subprocess.run(cmd+[str(p),'--output',str(out)],check=True,capture_output=True);assert json.loads(out.read_text())==expected
+   assert subprocess.run(cmd+[str(out),'--verify'],check=True,capture_output=True,text=True).stdout=='valid\n'
+print(f'Installed fault atlas: {len(controls)} controls, both entry points, fifth site-packages origin, outside checkout')

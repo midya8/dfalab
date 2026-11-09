@@ -53,3 +53,11 @@ MIT license. Full attribution and source notes: [CONTRACT.md](CONTRACT.md).
 The added W-method inspector builds `P · Σ^{≤m-n+1} · W`, retaining every access word, middle word, distinguishing suffix, test path and canonical factor witness. It separates suite agreement, the supplied candidate's reachable-state bound, the theorem's conditional conclusion and an independent exact product audit. A faulty extra-state candidate passes when the bound is understated; increasing the bound exposes its shortest fault. An independent native verifier audits every factor and output. The original L* page and learning schema remain available unchanged apart from navigation.
 
 Six added native tests include 52,488 exhaustive reference/candidate cases. Two added engine tests cross-check 131 full reports. Actual Chrome audits every 3,444 test selection across 11 controls and three widths. Four Python versions, seven Node/Chrome checks and installed two-family reproduction are covered by CI. Counts are tested fixture coverage, not a benchmark or a new theorem. [Exact assumptions, construction and sources](CONFORMANCE.md).
+
+## Every tiny implementation, every test subset
+
+[Finite fault atlas](https://midya8.github.io/dfalab/fault-atlas.html) | [Exact domain and optimization contract](FAULT_ATLAS.md)
+
+Enumerate every labeled implementation in a tiny unary/binary fault domain, exclude exactly equivalent candidates from the fault denominator, then inspect every subset of the constructed W-suite. The atlas proves the best subset under test-count then letter-count cost by checking every alternative, retaining all minima and concrete deletion witnesses. It never confuses irredundancy with minimum cardinality or claims globally shortest tests. Every candidate graph, acceptance matrix row, escaping fault and correct survivor is inspectable.
+
+Four added native checks cover all 60 tiny minimal references and independently audit candidate equivalence. Eleven complete cross-engine atlases and 24 actual-Chrome reports include 6,996 candidate selections and 804 subset selections at three widths. All eighteen native tests, ten Node/Chrome checks and installed three-family reproduction preserve the earlier learning and conformance work. These are bounded synthetic checks, not production fault-frequency estimates.
