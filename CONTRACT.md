@@ -1,4 +1,4 @@
-# DFALab contract and evidence
+# DFALab learning contract
 
 ## Input and finite teacher
 
@@ -38,7 +38,7 @@ The browser implementation uses string signatures and its own state indexing/que
 
 CLI generation accepts at most 64 KiB; certificate verification accepts at most 8 MiB. Reads are bounded before allocation. Duplicate decoded JSON keys and nonfinite JSON values are rejected. File output is atomic and invalid input exits 2 without replacing an existing output. Python 3.10+, no runtime dependencies; installed `dfalab` and `python -m dfalab` are checked outside the checkout. Browser teacher JSON is likewise limited to 64 KiB and rejects duplicate decoded keys and decimal/exponent state-ID literals. Probe words are at most 64 letters; invalid probes clear the probe audit. Editing a teacher clears every result and export until a valid rerun.
 
-## Controls and validation
+## Learning controls and validation
 
 Nine synthetic controls defined here include empty/universal languages, parity, delayed acceptance, unreachable acceptance, nonzero start labels, suffix recognition, unary periods and a seeded six-state teacher needing several conjectures and consistency repairs. A closed/consistent conjecture is visibly refuted. Delayed acceptance makes short-prefix agreement particularly misleading. The controls are descriptive examples, not an ablation, performance benchmark or a causal claim about query efficiency.
 
